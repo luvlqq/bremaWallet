@@ -11,12 +11,12 @@ datasource db {
 }
 
 model User {
-  id           Int    @unique @default(autoincrement())
+  id           String @unique @default(uuid())
   login        String @unique
   name         String
   hashPassword String
 }
 
 model Service {
-  id Int @unique @default(autoincrement())
+  id String @unique @default(uuid())
 }
