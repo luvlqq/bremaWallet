@@ -13,7 +13,8 @@ import {
   MAX_LENGTH_PASSWORD,
   MIN_LENGTH_LOGIN,
   MIN_LENGTH_PASSWORD,
-} from './helper.dto';
+} from './helper-for-dto';
+
 
 export class AuthDto {
   @IsString({ message: IS_STRING_MESSAGE })
