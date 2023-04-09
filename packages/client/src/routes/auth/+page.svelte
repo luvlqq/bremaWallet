@@ -38,7 +38,7 @@
     {#if message}
         <p>{message}</p>
     {/if}
-
-    <button type="submit" class="my-8 bg-transparent hover:bg-purple-500 text-purple-700 font-semibold hover:text-white py-2 px-4 border border-purple-500 hover:border-transparent rounded">Войти</button>
+    <a href="../auth/register" class="my-5 hover:bg-purple-500 text-purple-700 font-semibold hover:text-white">Create an account</a>
+    <button type="submit" class="bg-transparent hover:bg-purple-500 text-purple-700 font-semibold hover:text-white py-2 px-4 border border-purple-500 hover:border-transparent rounded">Log In</button>
 </div>
 </form>
