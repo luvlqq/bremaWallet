@@ -15,7 +15,6 @@ import {
   MIN_LENGTH_PASSWORD,
 } from './helper-for-dto';
 
-
 export class AuthDto {
   @IsString({ message: IS_STRING_MESSAGE })
   @IsNotEmpty({ message: IS_NOT_EMPTY })

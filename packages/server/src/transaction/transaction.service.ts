@@ -1,26 +1,24 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { Injectable, BadRequestException } from '@nestjs/common';
 import { PrismaService } from '../../prisma/prisma.service';
-import { UserTransferDto } from './dto/user.transaction.dto';
-import { ServiceTransactionDto } from './dto/service.transaction.dto';
 
 @Injectable()
 export class TransactionService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private prisma: PrismaService) {}
 
   async transfer(
-    senderId: number,
-    recipientId: number,
+    senderLogin: string,
+    recipientLogin: string,
     amount: number,
   ): Promise<any> {
     const sender = await this.prisma.user.findUnique({
-      where: { id: senderId },
+      where: { login: senderLogin },
     });
     const recipient = await this.prisma.user.findUnique({
-      where: { id: recipientId },
+      where: { login: recipientLogin },
     });
 
     if (!sender || !recipient) {
-      throw new BadRequestException('Invalid sender or recipient ID');
+      throw new BadRequestException('Invalid sender or recipient login');
     }
 
     if (sender.balance < amount) {
@@ -29,20 +27,20 @@ export class TransactionService {
 
     return this.prisma.$transaction(async (prisma) => {
       const updatedSender = await prisma.user.update({
-        where: { id: senderId },
+        where: { login: senderLogin },
         data: { balance: sender.balance - amount },
       });
 
       const updatedRecipient = await prisma.user.update({
-        where: { id: recipientId },
+        where: { login: recipientLogin },
         data: { balance: recipient.balance + amount },
       });
 
       const transfer = await prisma.userTransfer.create({
         data: {
           amount,
-          sender: { connect: { id: senderId } },
-          recipient: { connect: { id: recipientId } },
+          sender: { connect: { login: senderLogin } },
+          recipient: { connect: { login: recipientLogin } },
         },
       });
 
