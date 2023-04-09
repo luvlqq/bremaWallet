@@ -8,7 +8,6 @@ export class TransactionService {
   constructor(private readonly prisma: PrismaService) {}
   transferBetweenUsers(dto: UserTransactionDto) {
     const { id } = dto;
-
   }
 
   transferToService(dto: ServiceTransactionDto) {}
