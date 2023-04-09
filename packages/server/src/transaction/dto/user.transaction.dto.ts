@@ -1,6 +1,17 @@
-import { IsNumber } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsPositive, IsString } from 'class-validator';
 
-export class UserTransactionDto {
+export class UserTransferDto {
+  @IsNotEmpty()
   @IsNumber()
-  id: number;
+  @IsPositive()
+  amount: number;
+
+  @IsNotEmpty()
+  @IsString()
+  senderLogin: string;
+
+  @IsNotEmpty()
+  @IsString()
+  recipientLogin: string;
 }
+

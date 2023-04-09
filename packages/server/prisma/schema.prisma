@@ -11,12 +11,27 @@ datasource db {
 }
 
 model User {
-  id             String  @unique @default(uuid())
-  login          String  @unique
-  hashedPassword String
-  userName       String?
+  id                Int            @unique @default(autoincrement())
+  login             String         @unique
+  hashedPassword    String
+  userName          String?
+  balance           Float          @default(0)
+  createdAt         DateTime       @default(now())
+  sentTransfers     UserTransfer[] @relation("Sender")
+  receivedTransfers UserTransfer[] @relation("Recipient")
 }
 
-model Service {
-  id String @unique @default(uuid())
+model ServiceTransfer {
+  id          String @unique @default(uuid())
+  serviceName String
+}
+
+model UserTransfer {
+  id          Int      @id @default(autoincrement())
+  amount      Float
+  sender      User     @relation("Sender", fields: [senderId], references: [id])
+  senderId    Int
+  recipient   User     @relation("Recipient", fields: [recipientId], references: [id])
+  recipientId Int
+  createdAt   DateTime @default(now())
 }
