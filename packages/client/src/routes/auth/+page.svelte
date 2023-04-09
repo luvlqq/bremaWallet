@@ -1,47 +1,43 @@
-<script context="module">
-    let email = '';
-    let password = '';
+<script>
+    // eslint-disable-next-line no-unused-vars
+    import { onMount } from 'svelte';
+    import axios from 'axios';
+    import {data} from "autoprefixer";
+
+    let login;
+    let password;
+    let message;
 
     async function handleSubmit(event) {
         event.preventDefault();
 
-        const response = await fetch('/api/auth/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ email, password })
-        });
+        try {
+            // отправляем POST-запрос на сервер для авторизации
+            const response = await axios.post('http://localhost:3000/api/auth/login', { login, password });
 
-        if (response.ok) {
-            // успешная аутентификация, перенаправление на главную страницу
+            // если авторизация прошла успешно, сохраняем токен в локальном хранилище браузера
+            localStorage.setItem('token', response.data.token);
+
+            // перенаправляем пользователя на домашнюю страницу после успешной авторизации
             window.location.href = '/accountPage';
-        } else {
-            // вывод ошибки аутентификации
-            console.error('Ошибка аутентификации');
+        } catch (error) {
+            // если сервер вернул ошибку, выводим ее на экран
+            // eslint-disable-next-line no-unused-vars
+            message = data.error;
         }
     }
 </script>
 
-<nav>
-    <ul>
-        <li>
-            <a href="/">Home</a>
-        </li>
-        <li>
-            <a href="/auth">Authorization</a>
-        </li>
-    </ul>
-</nav>
-<h1>welcome wewewe</h1>
 <form on:submit={handleSubmit}>
-    <label for="email">Email</label>
-    <input type="email" id="email" bind:value={email} />
 
-    <label for="password">Password</label>
-    <input type="password" id="password" bind:value={password} />
+    <label for="login">Имя пользователя:</label>
+    <input type="text" placeholder="Type here" class="input input-bordered input-primary w-full max-w-xs" id="login" bind:value={login}/>
 
-    <button type="submit">Sign In</button>
+    <label for="password">Пароль:</label>
+    <input type="password" placeholder="Type here" class="input input-bordered input-primary w-full max-w-xs" id="password" bind:value={password}/>
+    {#if message}
+        <p>{message}</p>
+    {/if}
+
+    <button type="submit">Войти</button>
 </form>
-
-<a href="/auth/register">Register</a>
