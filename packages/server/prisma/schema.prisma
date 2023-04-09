@@ -11,10 +11,10 @@ datasource db {
 }
 
 model User {
-  id           String @unique @default(uuid())
-  login        String @unique
-  name         String
-  hashPassword String
+  id             String  @unique @default(uuid())
+  login          String  @unique
+  hashedPassword String
+  userName       String?
 }
 
 model Service {
