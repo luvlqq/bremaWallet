@@ -29,15 +29,16 @@
 </script>
 
 <form on:submit={handleSubmit}>
+<div class="flex items-center justify-center flex-col">
+    <label for="login" class="my-6">Имя пользователя:</label>
+    <input type="text" placeholder="login" class="input input-bordered input-primary w-full max-w-xs" id="login" bind:value={login}/>
 
-    <label for="login">Имя пользователя:</label>
-    <input type="text" placeholder="Type here" class="input input-bordered input-primary w-full max-w-xs" id="login" bind:value={login}/>
-
-    <label for="password">Пароль:</label>
-    <input type="password" placeholder="Type here" class="input input-bordered input-primary w-full max-w-xs" id="password" bind:value={password}/>
+    <label for="password" class="my-2">Пароль:</label>
+    <input type="password" placeholder="password" class="input input-bordered input-primary w-full max-w-xs " id="password" bind:value={password}/>
     {#if message}
         <p>{message}</p>
     {/if}
 
-    <button type="submit">Войти</button>
+    <button type="submit" class="my-8 bg-transparent hover:bg-purple-500 text-purple-700 font-semibold hover:text-white py-2 px-4 border border-purple-500 hover:border-transparent rounded">Войти</button>
+</div>
 </form>

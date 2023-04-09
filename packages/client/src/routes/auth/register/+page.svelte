@@ -1,13 +1,32 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
+<script>
+    // eslint-disable-next-line no-unused-vars
+    import { onMount } from 'svelte';
+    import axios from 'axios';
+    import {data} from "autoprefixer";
+
+    let login;
+    let password;
+    let message;
+
+    async function handleSubmit(event) {
+        event.preventDefault();
+
+        try {
+            // отправляем POST-запрос на сервер для авторизации
+            const response = await axios.post('http://localhost:3000/api/auth/register', { login, password });
+
+            // если авторизация прошла успешно, сохраняем токен в локальном хранилище браузера
+            localStorage.setItem('token', response.data.token);
+
+            // перенаправляем пользователя на домашнюю страницу после успешной авторизации
+            window.location.href = '/accountPage';
+        } catch (error) {
+            // если сервер вернул ошибку, выводим ее на экран
+            // eslint-disable-next-line no-unused-vars
+            message = data.error;
+        }
+    }
+</script>
 <div class="flex min-h-full items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
     <div class="w-full max-w-md space-y-8">
         <div>
@@ -15,12 +34,12 @@
                  alt="Your Company">
             <h2 class="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">Sign in to your account</h2>
         </div>
-        <form class="mt-8 space-y-6" action="#" method="POST">
+        <form class="mt-8 space-y-6" on:submit={handleSubmit()}>
             <input type="hidden" name="remember" value="true">
             <div class="-space-y-px rounded-md shadow-sm">
                 <div>
-                    <label for="email-address" class="sr-only">Email address</label>
-                    <input id="email-address" name="email" type="email" autocomplete="email" required
+                    <label for="login" class="sr-only">Email address</label>
+                    <input id="login" name="login" autocomplete="login" required
                            class="relative block w-full rounded-t-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                            placeholder="Email address">
                 </div>
@@ -55,5 +74,3 @@
         </form>
     </div>
 </div>
-</body>
-</html>
