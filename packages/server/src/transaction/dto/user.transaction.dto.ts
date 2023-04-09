@@ -14,4 +14,3 @@ export class UserTransferDto {
   @IsString()
   recipientLogin: string;
 }
-

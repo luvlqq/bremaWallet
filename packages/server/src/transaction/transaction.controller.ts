@@ -7,13 +7,13 @@ export class TransactionController {
 
   @Post()
   async transfer(
-    @Body('senderId') senderId: number,
-    @Body('recipientId') recipientId: number,
+    @Body('senderLogin') senderLogin: string,
+    @Body('recipientLogin') recipientLogin: string,
     @Body('amount') amount: number,
   ) {
     const transfer = await this.transactionService.transfer(
-      senderId,
-      recipientId,
+      senderLogin,
+      recipientLogin,
       amount,
     );
     return { transfer };

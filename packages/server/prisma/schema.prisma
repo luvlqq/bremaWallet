@@ -27,11 +27,11 @@ model ServiceTransfer {
 }
 
 model UserTransfer {
-  id          Int      @id @default(autoincrement())
-  amount      Float
-  sender      User     @relation("Sender", fields: [senderId], references: [id])
-  senderId    Int
-  recipient   User     @relation("Recipient", fields: [recipientId], references: [id])
-  recipientId Int
-  createdAt   DateTime @default(now())
+  id             Int      @id @default(autoincrement())
+  amount         Float
+  sender         User     @relation("Sender", fields: [senderLogin], references: [login])
+  senderLogin    String
+  recipient      User     @relation("Recipient", fields: [recipientLogin], references: [login])
+  recipientLogin String
+  createdAt      DateTime @default(now())
 }
