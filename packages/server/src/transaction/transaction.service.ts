@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import {BadRequestException, Injectable} from '@nestjs/common';
 import { PrismaService } from '../../prisma/prisma.service';
 import { UserTransferDto } from './dto/user.transaction.dto';
 import { ServiceTransactionDto } from './dto/service.transaction.dto';
@@ -20,11 +20,11 @@ export class TransactionService {
     });
 
     if (!sender || !recipient) {
-      throw new Error('Invalid sender or recipient ID');
+      throw new BadRequestException('Invalid sender or recipient ID');
     }
 
     if (sender.balance < amount) {
-      throw new Error('Insufficient balance');
+      throw new BadRequestException('Insufficient balance');
     }
 
     return this.prisma.$transaction(async (prisma) => {
