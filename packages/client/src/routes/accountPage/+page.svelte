@@ -1,12 +1,5 @@
-
-<script>
-
-</script>
-
+<!DOCTYPE html>
 <style>
-    .fly-in {
-        animation: fly-in 1.0s ease-out;
-    }
 
     @keyframes fly-in {
         from {

@@ -6,7 +6,7 @@
                     <a href="/" class="text-white text-xl font-bold">Brema Wallet</a>
                 </div>
             </div>
-            <div class="hidden sm:block sm:ml-6">
+            <div class="sm:block sm:ml-6">
                 <div class="flex space-x-4">
                     <a href="/auth" class="text-white hover:bg-white-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Log In</a>
                 </div>
