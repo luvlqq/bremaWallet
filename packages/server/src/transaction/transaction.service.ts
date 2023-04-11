@@ -1,15 +1,28 @@
-import { Injectable, BadRequestException } from '@nestjs/common';
+import {
+  Injectable,
+  BadRequestException,
+  HttpException,
+  HttpStatus,
+} from '@nestjs/common';
+import { validateOrReject } from 'class-validator';
 import { PrismaService } from '../../prisma/prisma.service';
+import { UserTransferDto } from './dto/user.transaction.dto';
 
 @Injectable()
 export class TransactionService {
   constructor(private prisma: PrismaService) {}
 
-  async transfer(
-    senderLogin: string,
-    recipientLogin: string,
-    amount: number,
-  ): Promise<any> {
+  async transfer(dto: UserTransferDto): Promise<any> {
+    try {
+      await validateOrReject(dto); // добавляем проверку class-validator
+    } catch (errors) {
+      throw new HttpException(
+        { message: 'Validation failed', errors },
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+
+    const { senderLogin, recipientLogin, amount } = dto;
     const sender = await this.prisma.user.findUnique({
       where: { login: senderLogin },
     });

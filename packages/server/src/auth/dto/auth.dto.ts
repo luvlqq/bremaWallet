@@ -14,13 +14,16 @@ import {
   MIN_LENGTH_LOGIN,
   MIN_LENGTH_PASSWORD,
 } from './helper-for-dto';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class AuthDto {
+  @ApiProperty({ description: 'login', nullable: false })
   @IsString({ message: IS_STRING_MESSAGE })
   @IsNotEmpty({ message: IS_NOT_EMPTY })
   @MinLength(5, { message: MIN_LENGTH_LOGIN })
   @MaxLength(20, { message: MAX_LENGTH_LOGIN })
   login: string;
+  @ApiProperty({ description: 'password', nullable: false })
   @IsString({ message: IS_STRING_MESSAGE })
   @IsNotEmpty({ message: IS_NOT_EMPTY })
   @MinLength(8, { message: MIN_LENGTH_PASSWORD })
