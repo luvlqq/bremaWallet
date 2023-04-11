@@ -1,12 +1,6 @@
 <script>
-    import Sidebar from '../components/sidebar.svelte';
-    import Nav from "../components/Navbar.svelte"
-    import {onMount} from "svelte";
-    let activeMenu = "";
-
-    onMount(() => {
-        activeMenu = "home";
-    });
+    import Sidebar from "../../components/sidebar.svelte";
+    import Nav from "../../components/Navbar.svelte";
 </script>
 <style>
     .page-container {
@@ -23,6 +17,6 @@
 </div>
 <div class="">
     <div class="ml-64">
-        <p class="text-4xl text-gray-900 dark:text-white">HOME</p>
+        <p class="text-4xl text-gray-900 dark:text-white">INBOX</p>
     </div>
 </div>
