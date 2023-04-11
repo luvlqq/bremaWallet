@@ -7,7 +7,6 @@ export class UserController {
 
   @Get(':id')
   async getUsersBalance(@Param('id') id: number) {
-    const userBalance = this.userService.getBalance(id);
-    return userBalance;
+    return this.userService.getBalance(id);
   }
 }

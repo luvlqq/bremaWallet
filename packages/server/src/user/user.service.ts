@@ -6,6 +6,9 @@ export class UserService {
   constructor(private readonly prisma: PrismaService) {}
 
   async getBalance(id) {
-    return this.prisma.user.findUnique({ where: id });
+    return this.prisma.user.findMany({
+      select: { balance: true },
+      where: { id },
+    });
   }
 }

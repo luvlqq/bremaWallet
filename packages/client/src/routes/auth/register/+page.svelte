@@ -46,28 +46,10 @@
     };
 </script>
 
-<style>
-    .fly-in {
-        animation: fly-in 1.0s ease-out;
-    }
-
-    @keyframes fly-in {
-        from {
-            transform: translateY(-50%);
-            opacity: 0;
-        }
-        to {
-            transform: translateY(0);
-            opacity: 1;
-        }
-    }
-</style>
-
 <form on:submit={handleSubmit}>
     <div class="flex items-center justify-center flex-col">
         <label for="login" class="my-5">Login:</label>
         <input type="text" placeholder="login" class="input input-bordered input-primary w-full max-w-xs" id="login" bind:value={login} />
-
         <label for="password" class="my-2">Password:</label>
         <input type="password" placeholder="password" class="input input-bordered input-primary w-full max-w-xs " id="password" bind:value={password} />
         <label for="passwordConfirm" class="my-2">Confirm your password:</label>
