@@ -17,7 +17,7 @@ export class UserController {
   })
   @ApiResponse({ status: HttpStatus.OK, description: 'Success', type: UserDto })
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad Request' })
-  async getUsersBalance(@Param('id') id: number) {
-    return this.userService.getBalance(id);
+  async getUsersBalance(@Param('id') dto: UserDto) {
+    return this.userService.getBalance(dto);
   }
 }
