@@ -16,6 +16,7 @@ export class TransactionController {
       recipientLogin,
       amount,
     );
+    console.log(transfer);
     return { transfer };
   }
 }

@@ -1,15 +1,33 @@
+<script>
 
-<h1>Brema wallet</h1>
+</script>
+
+<style>
+    .fly-in {
+        animation: fly-in 1.0s ease-out;
+    }
+
+    @keyframes fly-in {
+        from {
+            transform: translateY(60%);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+</style>
 
 <svelte:head>
-    <title></title>
+    <title>Murr Wallet</title>
 </svelte:head>
-
+<div class="fly-in">
 <div class="hero flex items-center justify-center">
     <div class="hero-content text-center">
         <div class="text-center">
-            <h1 class="text-5xl text-[#a413f2] font-bold outline-none">
-                <p>BREMA WALLET</p>
+            <h1 class="text-7xl text-[#a413f2] font-bold outline-none my-8">
+                <p>Brema WALLET</p>
             </h1>
 
             <p class="mt-5 text-2xl">
@@ -17,8 +35,13 @@
             </p>
 
             <div class="mt-10">
-                <a class="hover:text-[#a413f2] text-2xl duration-500" href="/auth">Log In</a>
+                <form action="/auth">
+                    <button class="bg-transparent hover:bg-purple-500 text-purple-700 font-semibold hover:text-white py-2 px-4 border border-purple-500 hover:border-transparent rounded">
+                        log In
+                    </button>
+                </form>
             </div>
         </div>
     </div>
+</div>
 </div>

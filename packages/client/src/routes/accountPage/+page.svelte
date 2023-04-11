@@ -1,21 +1,25 @@
-<script>
-    let count = 0;
 
-    function buttonCount() {
-        count += 1;
-    }
+<script>
+
 </script>
 
-<nav>
-    <ul>
-        <li>
-            <a href="/">Home</a>
-        </li>
-        <li>
-            <a href="/auth">Authorization</a>
-        </li>
-    </ul>
-</nav>
-<h1>Brema wallet</h1>
-<h1>Number {count}</h1>
-<button on:click={buttonCount}>Click</button>
+<style>
+    .fly-in {
+        animation: fly-in 1.0s ease-out;
+    }
+
+    @keyframes fly-in {
+        from {
+            transform: translateY(-50%);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+</style>
+
+<div class="fly-in">
+    <h1>fly in</h1>
+</div>
