@@ -1,7 +1,12 @@
-import { BadRequestException } from '@nestjs/common';
 import { AuthDto } from './dto/auth.dto';
 import { PrismaService } from '../../prisma/prisma.service';
-import { ForbiddenException, Injectable, Req, Res } from '@nestjs/common';
+import {
+  BadRequestException,
+  ForbiddenException,
+  Injectable,
+  Req,
+  Res,
+} from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { jwtSecret } from '../utils/constants';
