@@ -20,14 +20,14 @@
 </style>
 
 <svelte:head>
-    <title>Brema Wallet</title>
+    <title>Murr Wallet</title>
 </svelte:head>
 <div class="fly-in">
 <div class="hero flex items-center justify-center">
     <div class="hero-content text-center">
         <div class="text-center">
             <h1 class="text-7xl text-[#a413f2] font-bold outline-none my-8">
-                <p>BREMA WALLET</p>
+                <p>Brema WALLET</p>
             </h1>
 
             <p class="mt-5 text-2xl">
