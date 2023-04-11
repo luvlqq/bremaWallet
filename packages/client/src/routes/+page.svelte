@@ -2,9 +2,27 @@
 
 </script>
 
+<style>
+    .fly-in {
+        animation: fly-in 1.0s ease-out;
+    }
+
+    @keyframes fly-in {
+        from {
+            transform: translateY(60%);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+</style>
+
 <svelte:head>
     <title>Brema Wallet</title>
 </svelte:head>
+<div class="fly-in">
 <div class="hero flex items-center justify-center">
     <div class="hero-content text-center">
         <div class="text-center">
@@ -25,7 +43,5 @@
             </div>
         </div>
     </div>
-
 </div>
-<style>
-</style>
+</div>
