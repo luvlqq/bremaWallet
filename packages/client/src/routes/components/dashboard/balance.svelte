@@ -9,7 +9,7 @@
 </script>
 <div class="balance-wrapper">
 <div class="balance">
-    <div class="balText">Баланс</div>
+    <div class="balText">My balance</div>
     <div class="bal">{balance}</div>
     <button type="button" class="my-4 text-black bg-white hover:bg-purple-800 hover:text-white focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 w-48 h-12" on:click={toggleModal}>Send</button>
     {#if showModal}
@@ -28,24 +28,18 @@
 </div>
 
 <style>
-    .balance-wrapper {
-        width: 15%;
-        height: 100%;
-        margin-right: 20px;
-    }
+
     .balance {
-        width: 20rem;
         height: 20rem;
+        width: 30rem;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        background-color: #772def;
+        background-image: linear-gradient(to bottom right, #772def, #a876e8);
         padding: 10px;
-        margin-left: 3rem;
         border-radius: 10px;
         color: white;
-        text-align: center;
     }
     .balText {
         display: block;
@@ -54,7 +48,7 @@
     }
     .bal {
         position: relative;
-        font-size: xx-large;
+        font-size: 50px;
     }
 </style>
 
