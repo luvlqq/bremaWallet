@@ -3,16 +3,9 @@
     import Nav from "../components/Navbar.svelte";
     import Balance from '../components/dashboard/balance.svelte';
     import Transactions from '../components/dashboard/transactions.svelte';
-    import Modal from '../components/dashboard/transferModal.svelte'
-
     import {onMount} from "svelte";
 
     let activeMenu = "";
-    let showModal = false;
-
-    function toggleModal() {
-        showModal = !showModal;
-    }
 
     onMount(() => {
         activeMenu = "home";
@@ -29,8 +22,6 @@
     ];
 </script>
 <style>
-
-
     .dashboard {
         justify-content: center;
         flex-direction: row;
@@ -44,10 +35,10 @@
     <div class="dashboard">
         <div class="ml-64 flex justify-center items-center space-x-4">
             <div class="flex-grow">
-                <Balance balance={balance} />
+                    <Balance balance={balance}/>
             </div>
             <div class="flex-grow">
-                <Transactions transactions={transactions} />
+                <Transactions transactions={transactions}/>
             </div>
         </div>
     </div>
