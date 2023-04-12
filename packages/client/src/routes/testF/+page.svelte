@@ -1,77 +1,20 @@
 <script>
-    import { onMount } from "svelte";
+    let showModal = false;
 
-    let text = "Auto typing text";
-
-    let typedText = "";
-
-    let isDeleting = false;
-
-    let typingIdx = 0;
-
-    let delay = 100;
-
-    function startTyping() {
-        onMount(() => {
-            type();
-        });
+    function toggleModal() {
+        showModal = !showModal;
     }
-
-    function type() {
-        if (typingIdx < text.length) {
-            typedText += text[typingIdx];
-            typingIdx++;
-            delay = isDeleting ? 50 : 100;
-            $: setTimeout(type, delay);
-        } else {
-            $: setTimeout(deleteText, 1500);
-        }
-    }
-
-    function deleteText() {
-        if (typedText.length > 0) {
-            typedText = typedText.slice(0, typedText.length - 1);
-            delay = isDeleting ? 50 : 100;
-            $: setTimeout(deleteText, delay);
-        } else {
-            typingIdx = 0;
-            isDeleting = false;
-            $: setTimeout(type, 500);
-        }
-    }
-
-    startTyping();
 </script>
 
-<style>
-    .typing-text {
-        font-size: 2rem;
-        font-weight: bold;
-        color: #333;
-        white-space: nowrap;
-        overflow: hidden;
-        border-right: 0.15em solid #333;
-        animation: typing 1s steps(30, end), blink-caret 0.5s step-end infinite;
-    }
+<button type="button" class="my-4 text-black bg-white hover:bg-purple-800 hover:text-white focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 w-48 h-12" on:click={toggleModal}>Send</button>
 
-    @keyframes typing {
-        from {
-            width: 0;
-        }
-        to {
-            width: 100%;
-        }
-    }
-
-    @keyframes blink-caret {
-        from,
-        to {
-            border-color: transparent;
-        }
-        50% {
-            border-color: #333;
-        }
-    }
-</style>
-
-<div class="typing-text">{typedText}</div>
+{#if showModal}
+    <div class="fixed top-0 left-0 w-full h-full bg-black opacity-50 z-10"></div>
+    <div class="fixed top-0 left-0 w-full h-full flex justify-center items-center z-20">
+        <div class="bg-white p-8 rounded-lg">
+            <h2 class="text-lg font-medium mb-4">Modal Title</h2>
+            <p class="mb-4">Modal content goes here</p>
+            <button type="button" class="bg-purple-800 text-white px-4 py-2 rounded-lg hover:bg-purple-700 focus:outline-none" on:click={toggleModal}>Close</button>
+        </div>
+    </div>
+{/if}
