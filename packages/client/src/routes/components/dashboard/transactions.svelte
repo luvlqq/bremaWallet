@@ -6,7 +6,7 @@
     <div class="transactions">
         <div class="last-tr">Последние транзакции</div>
         {#each transactions as transaction}
-            <div class="transaction">
+            <div class="transaction my-2">
                 <p>{transaction.amount} ({transaction.type})</p>
                 <p>{transaction.date}</p>
             </div>
@@ -24,7 +24,7 @@
         border-bottom: 1px solid #ffffff;
     }
     .transactions-wrapper {
-        width: 25%;
+        width: 55%;
         height: 100%;
 
     }
@@ -32,13 +32,16 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        background-color: #772def;
+        background-image: linear-gradient(to top left, #772def, #a876e8);
         padding: 10px;
         border-radius: 10px;
         color: white;
         flex: 1;
         text-align: center;
+        max-height: 500px; /* задаем максимальную высоту блока */
+        max-width: 500px;
     }
+
     .transaction {
         margin-bottom: 10px;
     }

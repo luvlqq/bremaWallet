@@ -23,23 +23,30 @@
 </script>
 <style>
     .dashboard {
+        display: flex;
+        flex-direction: column;
         justify-content: center;
-        flex-direction: row;
-        padding: 20px;
-        margin-left: 250px;
+        align-items: stretch; /* добавляем выравнивание по высоте */
+        height: 100%; /* задаем высоту родительского контейнера */
+        padding: 3rem;
+    }
+    .flex-grow {
+        flex: 1;
+        height: 100%; /* задаем высоту дочерним элементам */
     }
 </style>
 <Nav/>
 <Sidebar/>
 <div class="">
     <div class="dashboard">
-        <div class="ml-64 flex justify-center items-center space-x-4">
+        <div class="ml-64 flex items-center h-full">
             <div class="flex-grow">
-                    <Balance balance={balance}/>
+                <Balance balance={balance}/>
             </div>
-            <div class="flex-grow">
+            <div class="flex-grow ml-4 h-full">
                 <Transactions transactions={transactions}/>
             </div>
         </div>
     </div>
+
 </div>
