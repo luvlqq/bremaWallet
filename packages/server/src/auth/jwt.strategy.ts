@@ -8,7 +8,10 @@ import { Request } from 'express';
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor() {
     super({
-      jwtFromRequest: ExtractJwt.fromExtractors([JwtStrategy.extractJWT]),
+      jwtFromRequest: ExtractJwt.fromExtractors([
+        JwtStrategy.extractJWT,
+        ExtractJwt.fromAuthHeaderAsBearerToken(),
+      ]),
       secretOrKey: jwtSecret,
     });
   }
