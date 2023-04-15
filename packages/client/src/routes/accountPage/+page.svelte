@@ -1,28 +1,52 @@
 <script>
     import Sidebar from '../components/sidebar.svelte';
-    import Nav from "../components/Navbar.svelte"
+    import Nav from "../components/Navbar.svelte";
+    import Balance from '../components/dashboard/balance.svelte';
+    import Transactions from '../components/dashboard/transactions.svelte';
     import {onMount} from "svelte";
+
     let activeMenu = "";
 
     onMount(() => {
         activeMenu = "home";
     });
+
+    let balance = 1000;
+    let transactions = [
+        {amount: 500, type: 'Пополнение', date: '01.04.2023'},
+        {amount: -200, type: 'Перевод', date: '02.04.2023'},
+        {amount: 100, type: 'Пополнение', date: '03.04.2023'},
+        {amount: -200, type: 'Перевод', date: '02.04.2023'},
+        {amount: -200, type: 'Перевод', date: '02.04.2023'},
+
+    ];
 </script>
 <style>
-    .page-container {
+    .dashboard {
         display: flex;
-        flex-direction: row;
-        justify-content: flex-start;
-        align-items: stretch;
-        height: 50%;
+        flex-direction: column;
+        justify-content: center;
+        align-items: stretch; /* добавляем выравнивание по высоте */
+        height: 100%; /* задаем высоту родительского контейнера */
+        padding: 3rem;
+    }
+    .flex-grow {
+        flex: 1;
+        height: 100%; /* задаем высоту дочерним элементам */
     }
 </style>
 <Nav/>
-<div class="page-container">
-    <Sidebar/>
-</div>
+<Sidebar/>
 <div class="">
-    <div class="ml-64">
-        <p class="text-4xl text-gray-900 dark:text-white">HOME</p>
+    <div class="dashboard">
+        <div class="ml-64 flex items-center h-full">
+            <div class="flex-grow">
+                <Balance balance={balance}/>
+            </div>
+            <div class="flex-grow ml-4 h-full">
+                <Transactions transactions={transactions}/>
+            </div>
+        </div>
     </div>
+
 </div>
