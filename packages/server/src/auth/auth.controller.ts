@@ -1,11 +1,13 @@
+// TODO переписать всю эту шляпу на нормальное
+
 import {
   Body,
   Controller,
   Get,
   HttpStatus,
   Post,
-  Req,
-  Res,
+  Request,
+  Response,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthDto } from './dto/auth.dto';
@@ -38,8 +40,7 @@ export class AuthController {
   })
   @ApiResponse({ status: HttpStatus.OK, description: 'Success', type: AuthDto })
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad Request' })
-  async login(@Body() dto: AuthDto, @Req() req, @Res() res) {
-    console.log('login to server');
+  async login(@Request() req, @Response() res, @Body() dto: AuthDto) {
     return this.authService.login(dto, req, res);
   }
 
@@ -51,7 +52,7 @@ export class AuthController {
     description: 'sign-out on account',
   })
   @ApiResponse({ status: HttpStatus.OK, description: 'Success' })
-  async signout(@Req() req, @Res() res) {
+  async signout(@Request() req, @Response() res) {
     return this.authService.signout(req, res);
   }
 }

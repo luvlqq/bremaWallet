@@ -1,11 +1,11 @@
+// TODO переписать всю эту шляпу на нормальное
+
 import { AuthDto } from './dto/auth.dto';
 import { PrismaService } from '../../prisma/prisma.service';
 import {
   BadRequestException,
   ForbiddenException,
   Injectable,
-  Req,
-  Res,
 } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
@@ -50,12 +50,12 @@ export class AuthService {
       throw new BadRequestException('Password doesnt match!');
     }
 
-    const token = await this.signToken({ login: foundUser.login });
+    const token = await this.signToken({ userLogin: foundUser.login });
     if (!token) {
-      throw new ForbiddenException('');
+      throw new ForbiddenException('Could not signin');
     }
 
-    res.cookie('token', token);
+    res.cookie('token', token, {});
 
     return res.send({ message: 'Logged in successful' });
   }
@@ -74,8 +74,11 @@ export class AuthService {
     return await bcrypt.compare(args.password, args.hash);
   }
 
-  async signToken(args: { login: string }) {
-    const payload = args;
-    return this.jwt.signAsync(payload, { secret: jwtSecret });
+  async signToken(args: { userLogin: string }) {
+    const payload = { login: args.userLogin };
+    const token = await this.jwt.signAsync(payload, {
+      secret: jwtSecret,
+    });
+    return token;
   }
 }
