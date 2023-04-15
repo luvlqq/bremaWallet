@@ -34,7 +34,7 @@
 <form on:submit={handleSubmit}>
 <div class="flex items-center justify-center flex-col mt-10">
     <label for="login" class="my-2">Login:</label>
-    <input type="text" placeholder="login" class="input input-bordered input-primary w-full max-w-xs" id="login" bind:value={login}/>
+    <input type="text" placeholder="login" class="input input-primary w-full max-w-xs" id="login" bind:value={login}/>
 
     <label for="password" class="my-2 mt-4">Password:</label>
     <input type="password" placeholder="password" class="input input-bordered input-primary w-full max-w-xs " id="password" bind:value={password}/>
