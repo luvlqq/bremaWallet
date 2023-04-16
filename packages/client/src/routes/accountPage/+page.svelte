@@ -3,15 +3,33 @@
     import Nav from "../components/Navbar.svelte";
     import Balance from '../components/dashboard/balance.svelte';
     import Transactions from '../components/dashboard/transactions.svelte';
-    import {onMount} from "svelte";
 
-    let activeMenu = "";
+    let balance = '';
 
-    onMount(() => {
-        activeMenu = "home";
-    });
 
-    let balance = 1000;
+    // onMount(async () => {
+    //     try {
+    //         const response = await fetch('http://localhost:3000/api/user/admin', {
+    //             headers: {
+    //                 'Content-Type': 'application/json'
+    //             },
+    //             credentials: 'include'
+    //         });
+    //
+    //         if (response.ok) {
+    //             const data = await response.json();
+    //             console.log(data)
+    //             balance = data.balance;
+    //             console.log(balance)
+    //         } else {
+    //             throw new Error('Unable to fetch user data');
+    //         }
+    //     } catch (error) {
+    //         console.error(error);
+    //     }
+    // });
+
+
     let transactions = [
         {amount: 500, type: 'Пополнение', date: '01.04.2023'},
         {amount: -200, type: 'Перевод', date: '02.04.2023'},
@@ -30,6 +48,7 @@
         height: 100%; /* задаем высоту родительского контейнера */
         padding: 3rem;
     }
+
     .flex-grow {
         flex: 1;
         height: 100%; /* задаем высоту дочерним элементам */
