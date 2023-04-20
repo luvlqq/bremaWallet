@@ -1,19 +1,11 @@
 <script>
     import {onMount} from "svelte";
-    import login from "../auth/login.svelte";
-
+    import { getUserBalance }  from './scripts/balance.service.js'
     export let balance;
     let showModal = false;
 
-    onMount(async () => {
-        const response = await fetch(`http://localhost:3000/api/user/${login}` ,{
-            headers: {'Content-Type':'application/json'},
-            credentials: 'include',
-        });
-        console.log(login)
-        const content = await response.json();
-        balance = content.user.balance;
-        console.log(balance);
+    onMount( () => {
+        getUserBalance()
     });
 
     function toggleModal() {

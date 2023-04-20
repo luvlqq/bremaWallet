@@ -1,5 +1,3 @@
-// TODO переписать всю эту шляпу на нормальное
-
 import { AuthDto } from './dto/auth.dto';
 import { PrismaService } from '../../prisma/prisma.service';
 import {

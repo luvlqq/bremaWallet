@@ -1,5 +1,3 @@
-// TODO переписать всю эту шляпу на нормальное
-
 import {
   Body,
   Controller,
