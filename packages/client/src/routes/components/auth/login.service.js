@@ -1,12 +1,11 @@
-import login from "./login.svelte";
-
-let userLogin;
+import { writable } from 'svelte/store';
 export let ErrorMessage;
+export let FinalLoginPls;
+export const UserData = writable();
 
-
-export async function submit(login, password, ErrorMessage) {
+export async function submit(login, password) {
     if (!login || !password) {
-        ErrorMessage.set('Please fill in all fields.');
+        ErrorMessage = 'Please fill in all fields.';
         return;
     }
 
@@ -22,8 +21,8 @@ export async function submit(login, password, ErrorMessage) {
         });
         const json = await response.json();
         if(response.ok) {
-            userLogin = login;
-            console.log(`user login is u ${userLogin}`);
+            console.log(`user login is u ${login}`);
+            UserData.set(login);
             window.location.replace('/accountPage');
         } else {
             ErrorMessage.set(json.message);
@@ -32,8 +31,7 @@ export async function submit(login, password, ErrorMessage) {
     } catch (error) {
         ErrorMessage.set(error.response?.data?.message || error.message);
     }
-
-    console.log(`login service down login: ${userLogin}`);
-    return userLogin;
 }
-export default userLogin;
+
+
+

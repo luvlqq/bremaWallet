@@ -1,16 +1,20 @@
 <script>
-    import { submit, ErrorMessage } from './login.service.js';
+    import {writable} from 'svelte/store'
+    import { submit } from '../auth/login.service';
+    let ErrorMessage;
+    let UserLogin;
     let login;
     let password;
-    ErrorMessage;
+    const loginData = writable('test');
 
-    function handleSubmit(event) {
-        event.preventDefault();
-        submit(login, password);
-    }
+    const handleFormSubmit = async (event) => {
+    // event.preventDefault();
+    submit(login, password);
+  };
+
 </script>
 
-<form on:submit={handleSubmit}>
+<form on:submit={handleFormSubmit}>
     <div class="flex items-center justify-center flex-col mt-10">
         <label for="login" class="my-2">Login:</label>
         <input type="text" placeholder="login" class="input input-primary w-full max-w-xs" id="login" bind:value={login}/>

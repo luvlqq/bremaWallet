@@ -1,11 +1,27 @@
 <script>
-    import {onMount} from "svelte";
-    import { getUserBalance }  from './scripts/balance.service.js'
-    export let balance;
+    import { onMount } from "svelte";
+    import { UserData } from '../auth/login.service';
+    import { testList } from '../dashboard/scripts/store';
+    let balance;
+    let userLogin;
     let showModal = false;
+    
+    onMount(async () => {
+        // testList.subscribe(value => console.log(`store js value ${value}`));
+        // write loop for find a max value of array
 
-    onMount( () => {
-        getUserBalance()
+
+
+
+        // TODO если тут не присваивать значение value к user login, то хоть как-то, но работает.
+        UserData.subscribe(value => `value is ${value}`);
+        const response = await fetch(`http://localhost:3000/api/user/${$UserData}` ,{
+            headers: {'Content-Type':'application/json'},
+            credentials: 'include',
+        });
+        const content = await response.json();
+        balance = content.user.balance;
+        console.log(balance);
     });
 
     function toggleModal() {
