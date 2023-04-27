@@ -3,33 +3,7 @@
     import Nav from "../components/Navbar.svelte";
     import Balance from '../components/dashboard/balance.svelte';
     import Transactions from '../components/dashboard/transactions.svelte';
-
     let balance = '';
-
-
-    // onMount(async () => {
-    //     try {
-    //         const response = await fetch('http://localhost:3000/api/user/admin', {
-    //             headers: {
-    //                 'Content-Type': 'application/json'
-    //             },
-    //             credentials: 'include'
-    //         });
-    //
-    //         if (response.ok) {
-    //             const data = await response.json();
-    //             console.log(data)
-    //             balance = data.balance;
-    //             console.log(balance)
-    //         } else {
-    //             throw new Error('Unable to fetch user data');
-    //         }
-    //     } catch (error) {
-    //         console.error(error);
-    //     }
-    // });
-
-
     let transactions = [
         {amount: 500, type: 'Пополнение', date: '01.04.2023'},
         {amount: -200, type: 'Перевод', date: '02.04.2023'},
@@ -60,7 +34,7 @@
     <div class="dashboard">
         <div class="ml-64 flex items-center h-full">
             <div class="flex-grow">
-                <Balance balance={balance}/>
+                <Balance/>
             </div>
             <div class="flex-grow ml-4 h-full">
                 <Transactions transactions={transactions}/>

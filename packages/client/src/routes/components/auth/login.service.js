@@ -1,6 +1,7 @@
 import { writable } from 'svelte/store';
 export let ErrorMessage;
 export let FinalLoginPls;
+let uLogin
 export const UserData = writable();
 
 export async function submit(login, password) {
@@ -21,17 +22,14 @@ export async function submit(login, password) {
         });
         const json = await response.json();
         if(response.ok) {
-            console.log(`user login is u ${login}`);
-            UserData.set(login);
             window.location.replace('/accountPage');
+            uLogin = json.login;
+            UserData.set(uLogin);
         } else {
-            ErrorMessage.set(json.message);
+            ErrorMessage = json.message;
         }
 
     } catch (error) {
-        ErrorMessage.set(error.response?.data?.message || error.message);
+        ErrorMessage = error.response?.data?.message || error.message;
     }
 }
-
-
-

@@ -5,16 +5,15 @@
     let UserLogin;
     let login;
     let password;
-    const loginData = writable('test');
 
     const handleFormSubmit = async (event) => {
-    // event.preventDefault();
+    event.preventDefault();
     submit(login, password);
   };
 
 </script>
-
-<form on:submit={handleFormSubmit}>
+    
+<form on:submit|preventDefault = {handleFormSubmit}>
     <div class="flex items-center justify-center flex-col mt-10">
         <label for="login" class="my-2">Login:</label>
         <input type="text" placeholder="login" class="input input-primary w-full max-w-xs" id="login" bind:value={login}/>

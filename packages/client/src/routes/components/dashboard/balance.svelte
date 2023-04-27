@@ -2,31 +2,30 @@
     import { onMount } from "svelte";
     import { UserData } from '../auth/login.service';
     import { testList } from '../dashboard/scripts/store';
-    let balance;
-    let userLogin;
+    let balance = 0;
     let showModal = false;
     
-    onMount(async () => {
-        // testList.subscribe(value => console.log(`store js value ${value}`));
-        // write loop for find a max value of array
-
-
-
-
-        // TODO если тут не присваивать значение value к user login, то хоть как-то, но работает.
-        UserData.subscribe(value => `value is ${value}`);
-        const response = await fetch(`http://localhost:3000/api/user/${$UserData}` ,{
-            headers: {'Content-Type':'application/json'},
-            credentials: 'include',
-        });
-        const content = await response.json();
-        balance = content.user.balance;
-        console.log(balance);
-    });
-
+    UserData.subscribe(value => console.log(`value is a ${value}`));
+    
     function toggleModal() {
         showModal = !showModal;
     }
+
+    async function fetchUserData() {
+        if(UserData){
+            const response = await fetch(`http://localhost:3000/api/user/admin`, {
+                headers: { 'Content-Type': 'application/json' },
+                credentials: 'include',
+        });
+            const content = await response.json();
+            if (content && content.user && content.user.balance) {
+                balance = content.user.balance;
+            }
+        }
+    };
+
+    onMount(fetchUserData);
+
 </script>
 <div class="balance-wrapper">
 <div class="balance">
