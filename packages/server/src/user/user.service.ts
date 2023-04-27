@@ -20,7 +20,6 @@ export class UserService {
 
   async getMyUser(login: string, req: Request) {
     const decodedUser = req.user as { login: string };
-    console.log(decodedUser);
     const foundUser = await this.prisma.user.findUnique({ where: { login } });
     if (!foundUser) {
       throw new NotFoundException();

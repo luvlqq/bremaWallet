@@ -1,5 +1,3 @@
-// TODO переписать всю эту шляпу на нормальное
-
 import { AuthDto } from './dto/auth.dto';
 import { PrismaService } from '../../prisma/prisma.service';
 import {
@@ -57,7 +55,7 @@ export class AuthService {
 
     res.cookie('token', token, {});
 
-    return res.send({ message: 'Logged in successful' });
+    return res.send({ message: 'Logged in successful', login });
   }
 
   async signout(req: Request, res: Response) {

@@ -3,15 +3,7 @@
     import Nav from "../components/Navbar.svelte";
     import Balance from '../components/dashboard/balance.svelte';
     import Transactions from '../components/dashboard/transactions.svelte';
-    import {onMount} from "svelte";
-
-    let activeMenu = "";
-
-    onMount(() => {
-        activeMenu = "home";
-    });
-
-    let balance = 1000;
+    let balance = '';
     let transactions = [
         {amount: 500, type: 'Пополнение', date: '01.04.2023'},
         {amount: -200, type: 'Перевод', date: '02.04.2023'},
@@ -30,6 +22,7 @@
         height: 100%; /* задаем высоту родительского контейнера */
         padding: 3rem;
     }
+
     .flex-grow {
         flex: 1;
         height: 100%; /* задаем высоту дочерним элементам */
@@ -41,7 +34,7 @@
     <div class="dashboard">
         <div class="ml-64 flex items-center h-full">
             <div class="flex-grow">
-                <Balance balance={balance}/>
+                <Balance/>
             </div>
             <div class="flex-grow ml-4 h-full">
                 <Transactions transactions={transactions}/>
