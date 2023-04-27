@@ -2,10 +2,14 @@
     import { onMount } from "svelte";
     import { UserData } from '../auth/login.service';
     import { testList } from '../dashboard/scripts/store';
-    let balance = 0;
+    import { uLogin } from '../auth/login.service';
+    let balance;
+    let UserLogin = localStorage.getItem('userlogin');
     let showModal = false;
-    
-    UserData.subscribe(value => console.log(`value is a ${value}`));
+    UserData.subscribe(value => {
+        UserLogin = value;
+        console.log(`user login in subscribe is: ${UserLogin}`);
+    });
     
     function toggleModal() {
         showModal = !showModal;
@@ -13,6 +17,7 @@
 
     async function fetchUserData() {
         if(UserData){
+            console.log(UserLogin);
             const response = await fetch(`http://localhost:3000/api/user/admin`, {
                 headers: { 'Content-Type': 'application/json' },
                 credentials: 'include',
@@ -22,8 +27,9 @@
                 balance = content.user.balance;
             }
         }
+        
     };
-
+    
     onMount(fetchUserData);
 
 </script>

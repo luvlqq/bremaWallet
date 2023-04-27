@@ -1,7 +1,7 @@
 import { writable } from 'svelte/store';
 export let ErrorMessage;
 export let FinalLoginPls;
-let uLogin
+export let uLogin;
 export const UserData = writable();
 
 export async function submit(login, password) {
@@ -24,6 +24,7 @@ export async function submit(login, password) {
         if(response.ok) {
             window.location.replace('/accountPage');
             uLogin = json.login;
+            localStorage.setItem('userlogin', uLogin);
             UserData.set(uLogin);
         } else {
             ErrorMessage = json.message;
@@ -32,4 +33,6 @@ export async function submit(login, password) {
     } catch (error) {
         ErrorMessage = error.response?.data?.message || error.message;
     }
+
+    return uLogin;
 }
