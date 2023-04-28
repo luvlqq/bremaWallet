@@ -2,10 +2,15 @@
 	import { onMount } from 'svelte';
 	import { UserData } from '../auth/login.service';
 	import { get } from 'svelte/store';
+	import { transfer } from '../../../services/transfer/transfer';
 
+	let ErrorMessage;
+	let recipientLogin;
+	let amount;
 	let balance = '0';
 	let showModal = false;
 	let UserLogin = get(UserData);
+	let senderLogin = get(UserData);
 
 	function toggleModal() {
 		showModal = !showModal;
@@ -13,7 +18,6 @@
 
 	async function fetchUserData() {
 		if (UserData) {
-			console.log(UserLogin);
 			const response = await fetch(`http://localhost:3000/api/user/${UserLogin}`, {
 				headers: { 'Content-Type': 'application/json' },
 				credentials: 'include'
@@ -24,8 +28,12 @@
 			}
 		}
 	}
-
 	onMount(fetchUserData);
+
+	const handleransferSubmit = async (event) => {
+		event.preventDefault();
+		transfer(recipientLogin, amount);
+	};
 </script>
 
 <div class="balance-wrapper">
@@ -47,6 +55,7 @@
 						class="rounded-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
 						placeholder="User login"
 						required
+						bind:value={recipientLogin}
 					/>
 					<input
 						type="number"
@@ -54,6 +63,7 @@
 						class="my-4 rounded-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
 						placeholder="Amount"
 						required
+						bind:value={amount}
 					/>
 					<div class="flex justify-center">
 						<button
@@ -64,7 +74,7 @@
 						<button
 							type="button"
 							class="my-4 ml-5 px-4 bg-purple-800 text-white px-4 py-2 rounded-lg hover:bg-purple-700 focus:outline-none"
-							on:click={toggleModal}>Send</button
+							on:click={handleransferSubmit}>Send</button
 						>
 					</div>
 				</div>
