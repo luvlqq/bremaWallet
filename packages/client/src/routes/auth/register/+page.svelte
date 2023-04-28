@@ -36,7 +36,7 @@
 
 			if (response.status === 201) {
 				// Регистрация успешна, делаем что-то, например переходим на страницу с аккаунтом
-				window.location.href = '/accountPage';
+				window.location.href = '/auth';
 			} else {
 				// Ошибка регистрации, показываем пользователю сообщение об ошибке
 				ErrorMessage = json.message;
