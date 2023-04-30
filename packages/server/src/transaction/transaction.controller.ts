@@ -2,12 +2,17 @@ import {
   BadRequestException,
   Body,
   Controller,
+  Get,
   HttpStatus,
+  Param,
   Post,
+  Req,
+  UseGuards,
 } from '@nestjs/common';
 import { TransactionService } from './transaction.service';
 import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { UserTransferDto } from './dto/user.transaction.dto';
+import { JwtAuthGuard } from '../auth/jwt.guard';
 
 @ApiTags('Transactions')
 @Controller('transaction')
@@ -35,5 +40,11 @@ export class TransactionController {
     } catch (error) {
       throw new BadRequestException(error.message);
     }
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('history/:login')
+  async getUserTransfers(@Param('login') login: string, @Req() req) {
+    return this.transactionService.getUserTransfers(login, req);
   }
 }

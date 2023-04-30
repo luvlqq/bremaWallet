@@ -3,10 +3,16 @@ import {
   BadRequestException,
   HttpException,
   HttpStatus,
+  NotFoundException,
+  ForbiddenException,
 } from '@nestjs/common';
 import { validateOrReject } from 'class-validator';
 import { PrismaService } from '../../prisma/prisma.service';
 import { UserTransferDto } from './dto/user.transaction.dto';
+import { HistoryTransactionDTO } from './dto/history.transactions.dto';
+import { omit } from 'lodash';
+import { Request } from 'express';
+import { UserTransfer } from '@prisma/client';
 
 @Injectable()
 export class TransactionService {
@@ -59,5 +65,52 @@ export class TransactionService {
 
       return transfer;
     });
+  }
+
+  // TODO Написать сервис вывода истории
+  async getUserTransfers(
+    login: string,
+    req: Request,
+  ): Promise<HistoryTransactionDTO> {
+    const decodedUser = req.user as { login: string };
+    const user = await this.prisma.user.findUnique({
+      where: { login },
+      include: {
+        sentTransfers: {
+          include: { recipient: true },
+        },
+        receivedTransfers: {
+          include: { sender: true },
+        },
+      },
+    });
+
+    if (user.login !== decodedUser.login) {
+      throw new ForbiddenException();
+    }
+
+    const sentTransfers = user.sentTransfers.map((transfer) =>
+      this.mapUserTransferToDto(omit(transfer, ['sender', 'senderLogin'])),
+    );
+    const receivedTransfers = user.receivedTransfers.map((transfer) =>
+      this.mapUserTransferToDto(
+        omit(transfer, ['recipient', 'recipientLogin']),
+      ),
+    );
+
+    return {
+      sentTransfers,
+      receivedTransfers,
+    };
+  }
+
+  private mapUserTransferToDto(userTransfer: UserTransfer): UserTransferDto {
+    return {
+      id: userTransfer.id,
+      amount: userTransfer.amount,
+      senderLogin: userTransfer.senderLogin,
+      recipientLogin: userTransfer.recipientLogin,
+      createdAt: userTransfer.createdAt,
+    };
   }
 }

@@ -1,11 +1,9 @@
 <script>
 	import '../app.css';
-    import Foot from '../routes/components/Footer.svelte'
+	import Foot from '../routes/components/Footer.svelte';
 </script>
 
-
 <div class>
-	<slot/>
+	<slot />
 </div>
-<Foot/>
-
+<Foot />
