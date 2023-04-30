@@ -1,6 +1,7 @@
 <script>
 	import Nav from '../../components/Navbar.svelte';
 	import Sidebar from '../../components/sidebar.svelte';
+    import Transactions from '../../components/dashboard/transactions.svelte';
 	import { onMount } from 'svelte';
 	let activeMenu = '';
 
@@ -16,5 +17,6 @@
 <div class="">
 	<div class="ml-64">
 		<p class="text-4xl text-gray-900 dark:text-white">HISTORY</p>
+        <Transactions/>
 	</div>
 </div>

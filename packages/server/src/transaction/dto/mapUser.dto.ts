@@ -18,6 +18,6 @@ export class MapUserDto {
   @IsNotEmpty()
   id: number;
 
-  @Type(() => Date)
+  @Type(() => Date.UTC)
   createdAt: Date;
 }

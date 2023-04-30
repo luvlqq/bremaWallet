@@ -1,17 +1,48 @@
 <script>
-	export let transactions;
+    import { UserData } from '../auth/login.service';
+    import {get} from "svelte/store";
+    import {onMount} from "svelte";
+
+    let UserLogin = get(UserData);
+    export let sentTransfers = [];
+    export let receivedTransfers = [];
+
+    export const fetchData = async () => {
+        try {
+            const response = await fetch(`http://localhost:3000/api/transaction/history/${UserLogin}`, {
+                headers: { 'Content-Type': 'application/json' },
+                credentials: 'include'
+            });
+            const data = await response.json();
+
+            if (data.sentTransfers) {
+                sentTransfers = data.sentTransfers;
+            }
+
+            if (data.receivedTransfers) {
+                receivedTransfers = data.receivedTransfers;
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    };
+    onMount(fetchData);
+
 </script>
 
 <div class="transactions-wrapper">
 	<div class="transactions">
 		<div class="last-tr">Последние транзакции</div>
-		{#each transactions as transaction}
-			<div class="transaction my-2">
-				<p>{transaction.amount} ({transaction.type})</p>
-				<p>{transaction.date}</p>
-			</div>
-			<div class="line" />
-		{/each}
+        {#if sentTransfers && sentTransfers.length && receivedTransfers && receivedTransfers.length > 0}
+            {#each sentTransfers.slice(0,5) as transfer}
+                <li>{transfer.amount} to {transfer.recipientLogin} at {new Date(transfer.createdAt).toLocaleString('ru-RU', { timeZone: 'UTC' })}</li>
+            {/each}
+            {#each receivedTransfers.slice(0,5) as transfer}
+                <li>{transfer.amount} from {transfer.senderLogin} at {new Date(transfer.createdAt).toLocaleString('ru-RU', { timeZone: 'UTC' })}</li>
+            {/each}
+        {:else}
+            <p>No transfer history found.</p>
+        {/if}
 	</div>
 </div>
 

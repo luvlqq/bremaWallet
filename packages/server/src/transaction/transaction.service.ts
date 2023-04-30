@@ -13,7 +13,7 @@ import { HistoryTransactionDTO } from './dto/history.transactions.dto';
 import { omit } from 'lodash';
 import { Request } from 'express';
 import { UserTransfer } from '@prisma/client';
-import {MapUserDto} from "./dto/mapUser.dto";
+import { MapUserDto } from './dto/mapUser.dto';
 
 @Injectable()
 export class TransactionService {
