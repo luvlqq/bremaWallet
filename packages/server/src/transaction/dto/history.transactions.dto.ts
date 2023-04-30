@@ -1,4 +1,6 @@
+import { UserTransfer } from '@prisma/client';
+
 export class HistoryTransactionDTO {
-  login: any;
-  limit: any;
+  sentTransfers: Omit<UserTransfer, 'sender' | 'senderLogin'>[];
+  receivedTransfers: Omit<UserTransfer, 'recipient' | 'recipientLogin'>[];
 }

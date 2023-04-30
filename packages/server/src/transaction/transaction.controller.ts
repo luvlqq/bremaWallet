@@ -4,14 +4,15 @@ import {
   Controller,
   Get,
   HttpStatus,
+  Param,
   Post,
+  Req,
   UseGuards,
 } from '@nestjs/common';
 import { TransactionService } from './transaction.service';
 import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { UserTransferDto } from './dto/user.transaction.dto';
 import { JwtAuthGuard } from '../auth/jwt.guard';
-import { HistoryTransactionDTO } from '../transaction/dto/history.transactions.dto';
 
 @ApiTags('Transactions')
 @Controller('transaction')
@@ -42,8 +43,8 @@ export class TransactionController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Get('history')
-  async showBalanceHistory(@Body() dto: HistoryTransactionDTO) {
-    return this.transactionService.showBalanceHistory(dto);
+  @Get('history/:login')
+  async getUserTransfers(@Param('login') login: string, @Req() req) {
+    return this.transactionService.getUserTransfers(login, req);
   }
 }
