@@ -1,5 +1,4 @@
 import {
-  ForbiddenException,
   Injectable,
   NotFoundException,
   UnauthorizedException,
@@ -26,7 +25,7 @@ export class UserService {
     }
 
     if (foundUser.login !== decodedUser.login) {
-      throw new ForbiddenException();
+      throw new UnauthorizedException();
     }
 
     delete foundUser.hashedPassword;

@@ -12,6 +12,7 @@ import { UserTransferDto } from './dto/user.transaction.dto';
 import { HistoryTransactionDTO } from './dto/history.transactions.dto';
 import { omit } from 'lodash';
 import { Request } from 'express';
+import { UserTransfer } from '@prisma/client';
 
 @Injectable()
 export class TransactionService {
@@ -89,15 +90,27 @@ export class TransactionService {
     }
 
     const sentTransfers = user.sentTransfers.map((transfer) =>
-      omit(transfer, ['sender', 'senderLogin']),
+      this.mapUserTransferToDto(omit(transfer, ['sender', 'senderLogin'])),
     );
     const receivedTransfers = user.receivedTransfers.map((transfer) =>
-      omit(transfer, ['recipient', 'recipientLogin']),
+      this.mapUserTransferToDto(
+        omit(transfer, ['recipient', 'recipientLogin']),
+      ),
     );
 
     return {
       sentTransfers,
       receivedTransfers,
+    };
+  }
+
+  private mapUserTransferToDto(userTransfer: UserTransfer): UserTransferDto {
+    return {
+      id: userTransfer.id,
+      amount: userTransfer.amount,
+      senderLogin: userTransfer.senderLogin,
+      recipientLogin: userTransfer.recipientLogin,
+      createdAt: userTransfer.createdAt,
     };
   }
 }
