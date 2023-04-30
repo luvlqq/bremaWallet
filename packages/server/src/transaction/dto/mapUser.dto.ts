@@ -1,7 +1,7 @@
 import { IsNotEmpty, IsNumber, IsPositive, IsString } from 'class-validator';
 import { Type } from 'class-transformer';
 
-export class UserTransferDto {
+export class MapUserDto {
   @IsNotEmpty()
   @IsNumber()
   @IsPositive()
@@ -14,4 +14,10 @@ export class UserTransferDto {
   @IsNotEmpty()
   @IsString()
   recipientLogin: string;
+
+  @IsNotEmpty()
+  id: number;
+
+  @Type(() => Date)
+  createdAt: Date;
 }
