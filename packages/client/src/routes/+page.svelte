@@ -1,5 +1,6 @@
 <script>
 	import { onMount } from 'svelte';
+	import Foot from "./components/Footer.svelte";
 
 	let arrWords = [
 		'all',
@@ -88,7 +89,7 @@
 		</form>
 	</div>
 </div>
-
+<Foot />
 <style>
 	@keyframes typing {
 		from {

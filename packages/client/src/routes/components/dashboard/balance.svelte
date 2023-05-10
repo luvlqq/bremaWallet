@@ -4,13 +4,12 @@
 	import { get } from 'svelte/store';
 	import { transfer } from '../../../services/transfer/transfer';
 
-	let ErrorMessage;
 	let recipientLogin;
 	let amount;
 	let balance = '0';
 	let showModal = false;
 	let UserLogin = get(UserData);
-	let senderLogin = get(UserData);
+	let ErrorMessage;
 
 	function toggleModal() {
 		showModal = !showModal;
@@ -23,6 +22,7 @@
 				credentials: 'include'
 			});
 			const content = await response.json();
+			ErrorMessage = content.message;
 			if (content && content.user && content.user.balance) {
 				balance = content.user.balance;
 			}
@@ -34,6 +34,7 @@
 		event.preventDefault();
 		transfer(recipientLogin, amount);
 	};
+
 </script>
 
 <div class="balance-wrapper">
@@ -65,6 +66,15 @@
 						required
 						bind:value={amount}
 					/>
+					{#if ErrorMessage}
+						<div
+								class="my-2 p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+								role="alert"
+						>
+							<span class="font-medium">Error!</span>
+							{ErrorMessage}
+						</div>
+					{/if}
 					<div class="flex justify-center">
 						<button
 							type="button"

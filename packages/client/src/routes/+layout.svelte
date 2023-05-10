@@ -6,4 +6,4 @@
 <div class>
 	<slot />
 </div>
-<Foot />
+

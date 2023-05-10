@@ -1,6 +1,5 @@
 import { persisted } from 'svelte-local-storage-store';
 export let ErrorMessage;
-export let FinalLoginPls;
 export let uLogin;
 export const UserData = persisted('userlogin', uLogin);
 
@@ -21,15 +20,15 @@ export async function submit(login, password) {
 			})
 		});
 		const json = await response.json();
-		if (response.ok) {
+		if (response.status === 201) {
 			window.location.replace('/accountPage');
 			uLogin = json.login;
 			UserData.set(uLogin);
 		} else {
 			ErrorMessage = json.message;
 		}
-	} catch (error) {
-		ErrorMessage = error.response?.data?.message || error.message;
+	} catch (e) {
+		ErrorMessage = 'An error occurred while registering';
 	}
 
 	return uLogin;

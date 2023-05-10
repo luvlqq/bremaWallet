@@ -1,8 +1,7 @@
 <script>
-	import { writable } from 'svelte/store';
 	import { submit } from '../auth/login.service';
-	let ErrorMessage;
-	let UserLogin;
+	import { ErrorMessage } from '../../../services/transfer/transfer.js';
+
 	let login;
 	let password;
 

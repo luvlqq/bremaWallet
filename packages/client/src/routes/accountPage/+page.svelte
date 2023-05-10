@@ -3,26 +3,18 @@
 	import Nav from '../components/Navbar.svelte';
 	import Balance from '../components/dashboard/balance.svelte';
 	import Transactions from '../components/dashboard/transactions.svelte';
-	let balance = '';
-	let transactions = [
-		{ amount: 500, type: 'Пополнение', date: '01.04.2023' },
-		{ amount: -200, type: 'Перевод', date: '02.04.2023' },
-		{ amount: 100, type: 'Пополнение', date: '03.04.2023' },
-		{ amount: -200, type: 'Перевод', date: '02.04.2023' },
-		{ amount: -200, type: 'Перевод', date: '02.04.2023' }
-	];
 </script>
 
 <Nav />
 <Sidebar />
-<div class="">
+<div class="test">
 	<div class="dashboard">
 		<div class="ml-64 flex items-center h-full">
 			<div class="flex-grow">
 				<Balance />
 			</div>
 			<div class="flex-grow ml-4 h-full">
-				<Transactions {transactions} />
+				<Transactions />
 			</div>
 		</div>
 	</div>
@@ -37,7 +29,6 @@
 		height: 100%; /* задаем высоту родительского контейнера */
 		padding: 3rem;
 	}
-
 	.flex-grow {
 		flex: 1;
 		height: 100%; /* задаем высоту дочерним элементам */

@@ -1,5 +1,6 @@
 <script>
 	import Nav from '../../components/Navbar.svelte';
+	import Foot from "../../components/Footer.svelte";
 
 	let login = '';
 	let password = '';
@@ -94,3 +95,4 @@
 		>
 	</div>
 </form>
+<Foot />
